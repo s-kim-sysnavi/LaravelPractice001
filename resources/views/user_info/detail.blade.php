@@ -106,7 +106,7 @@
     <input type="submit" value="修正" class="button-link">
 </form>
 
-@if ($authuser -> role == 'admin' && $authuser -> id == $user->id)
+@if ($authuser -> role == 'admin' && $authuser -> role == $user->role)
 <script>
     function toggleSubmitButton() {
         const submitButton = document.getElementById('button-link-admin');

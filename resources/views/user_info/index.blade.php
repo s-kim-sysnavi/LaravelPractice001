@@ -34,7 +34,7 @@
         <td>{{$user -> address}}</td>
         <td>{{$user -> join_year}}</td>
         <td><a href="{{route('user_info.show',['user'=> $user])}}">詳細</a></td>
-        @if ($user->role == 'admin' && $user->id == $authuser -> id)
+        @if ($user->role == 'admin' && $user->role == $authuser -> role)
         <td><a>-</a></td>
         @else
         <td><a href="{{route('user_info.delete_confirm',['user'=> $user])}}">削除</a></td>

@@ -109,26 +109,9 @@
 
 
 </form>
-<p>TSET用：250210</p>
-<div>
-    <a href="{{route('user_info.profile_image',['user'=>$user])}}">
-        <img src=" {{asset('storage/'.$user->profile_image)}}" alt="" class="circle-image">
-    </a>
-</div>
+<p>TSET用：250212</p>
 
-
-<a href="{{route('user_info.show',['user'=>$user])}}"
-    class="button-link">プロフィール詳細</a>
 <a href="{{route('user_info.index')}}" class="button-link">社員情報一覧</a>
 
-<div align="left" class="login-info">
-    <p>ログインユーザー情報</p>
-    <p>ID:{{$user -> id}}</p>
-    <p align="right"></p>
-    <p>現在ログインしているユーザー：{{$user -> last_name." ".$user -> first_name}}</p>
-    <p align="right"></p>
-    <p>あなたの権限：{{$user -> role}}</p>
-    <p align="right"></p>
-</div>
 
 @endsection

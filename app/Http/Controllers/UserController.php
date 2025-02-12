@@ -19,13 +19,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-
     
     public function top()
     {
         //
-        $authuser = Auth::user();
-        return view("top", ["user" => $authuser]);
+        $user = Auth::user();
+        return view("top", ["user" => $user]);
     }
 
     public function index()
