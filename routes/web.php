@@ -29,3 +29,4 @@ Route::post('user-info/create', [UserController::class, 'store'])->name('user_in
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+

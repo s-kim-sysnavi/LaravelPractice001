@@ -94,6 +94,7 @@
     @csrf
     @method('DELETE')
 
+    
 
     <p>
         <a class="key"><label for="id">ID:</label></a><a class="value">{{old('id',$user -> id)}}</a>

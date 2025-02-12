@@ -10,6 +10,7 @@
 </script>
 @endif
 
+
 <form action="{{route('login')}}" method="post">
     @csrf
     <label for="email">Email:</label> <input type="text"

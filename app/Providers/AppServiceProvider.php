@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // 
+
     }
 
     /**
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         //
         Gate::define('compare-user', function (User $authUser, User $targetUser) {
             return $authUser->id === $targetUser->id || $authUser->role === 'admin';
+            
         });
 
         Gate::define('compare-user-delete', function (User $authUser, User $targetUser) {

@@ -30,6 +30,7 @@ class User extends Authenticatable
     protected $attributes = [
         'role' => 'user', // default
         'profile_image' => 'users/default.png',
+        
     ];
     /**
      * The attributes that should be hidden for serialization.

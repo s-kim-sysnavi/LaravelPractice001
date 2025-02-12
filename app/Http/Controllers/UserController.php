@@ -65,6 +65,7 @@ class UserController extends Controller
             Log::warning('User registration validation failed.', ['message' => $e->errors()]);
 
             return back()->withErrors($e->errors())->withInput();
+            
         }
     }
     /**

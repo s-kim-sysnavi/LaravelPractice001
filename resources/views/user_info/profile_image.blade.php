@@ -70,6 +70,7 @@
 <p id="file-info"></p>
 <div id="preview" class="preview"></div>
 <p>
+    
 <div id="drag-and-drop" class="drag-and-drop">
     <p>ここにファイルをドラッグアンドドロップしてください。</p>
 </div>

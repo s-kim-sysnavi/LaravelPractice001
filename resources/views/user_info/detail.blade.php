@@ -22,6 +22,7 @@
     }
 </style>
 @endsection
+
 @section('content')
 
 @if (session('message'))

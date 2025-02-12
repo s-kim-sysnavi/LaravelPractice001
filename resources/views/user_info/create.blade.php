@@ -250,4 +250,5 @@
 
 <a href="{{route('login')}}" class="button-link">ログイン画面へ</a>
 
+
 @endsection

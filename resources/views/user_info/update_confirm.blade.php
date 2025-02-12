@@ -14,6 +14,7 @@
 
 
     <div class="form-input">
+        
         Email：
         <a class="old-value">{{old('email',$user -> email)}}</a>
         <!-- <input type="hidden" value="{{old('email',$user -> email)}}"> -->

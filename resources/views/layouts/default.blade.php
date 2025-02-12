@@ -126,6 +126,7 @@
             </form>
             <h2>@yield('title','社員情報管理アプリα')</h2>
             @yield('content')
+            
 
         </main>
         <footer> フッター</footer>

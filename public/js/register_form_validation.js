@@ -184,3 +184,4 @@ firstnameInput.addEventListener('input', validateFirstName);
 
 addressInput.addEventListener('input', validateAddress);
 // joinyearInput.addEventListener('input', validateJoinYear);
+
