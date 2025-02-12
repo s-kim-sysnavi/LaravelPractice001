@@ -14,46 +14,34 @@
         padding: 30;
         margin: 30;
     }
+
+    button:disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
 </style>
 @endsection
 @section('content')
 
-<!-- <div>
-    <p>
-        <img src="{{asset('storage/'.$user->profile_image)}}" alt="" class="circle-image" }}" alt="">
-    </p>
+@if (session('message'))
+<script>
+    alert("{{ session('message') }}");
+</script>
+@endif
 
-    <p>
-        氏名：{{$user->last_name." ".$user->first_name}}
-    </p>
-    <p>
-        Email：{{$user -> email}}
-    </p>
-    <p>
-        性別：{{$user -> gender}}
-    </p>
-    <p>
-        入社日：{{$user ->join_year}}　　(現在勤続期間：)
-    </p>
-    <p>
-        住所：{{$user -> address}}
-    </p>
-    <p>
-        ポジション：エンジニア
-    </p>
-
-    <p>
-        情報登録日：{{$user -> created_at}}　　情報更新日：{{$user -> updated_at}}
-    </p>
-
-</div> -->
-
-<form action="{{route('user_info.update_confirm',['user' => $user])}}" method="get">
+<form action="{{route('user_info.update_confirm',['user' => $user])}}" method="post" enctype="multipart/form-data">
     @csrf
 
-
-    <label for="email">Email：{{$user -> email}}</label>
-    <input type="hidden" value="{{old('email',$user -> email)}}">
+    <div>
+        <p>プロフィール画像</p>
+        <a href="{{route('user_info.profile_image',['user'=>$user])}}">
+            <img src=" {{asset('storage/'.$user->profile_image)}}" alt="" class="circle-image">
+        </a>
+    </div>
+    <div><label for="id">Id：{{$user -> id}}</label> </div>
+    <div><label for="email">Email：{{$user -> email}}</label> </div>
+    <!-- <input type="hidden" value="{{old('email',$user -> email)}}"> -->
     <div class="form-input">
         氏名：
         <label for="last_name"></label>
@@ -91,9 +79,24 @@
     <input type="submit" value="修正" class="button-link">
 </form>
 
-<!-- 「トップ画面へ」ボタン -->
+@if ($authuser -> role == 'admin' && $authuser -> id == $user->id)
+<script>
+    function toggleSubmitButton() {
+        const submitButton = document.getElementById('button-link-admin');
+
+        submitButton.disabled
+    }
+</script>
+<input type="submit" value="削除" id="button-link-admin" class="button-link">
+
+@elseif ($authuser -> role == 'admin')
 <form action="{{route('user_info.delete_confirm',['user' => $user])}}" method="get">
     <input type="submit" value="削除" class="button-link">
+</form>
+@endif
+
+<form action="{{route('user_info.index')}}" method="get">
+    <input type="submit" value="社員情報一覧へ" class="button-link">
 </form>
 
 <form action="{{route('top')}}" method="get">

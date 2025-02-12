@@ -36,9 +36,10 @@ class AuthController extends Controller
         // 一つ前のページ(ログイン画面)にリダイレクト
         // その際にwithErrorsを使ってエラーメッセージで手動で指定する
         // リダイレクト後のビュー内でold関数によって直前の入力内容を取得出来る項目をonlyInputで指定する
-        return back()->withErrors([
-            'email' => 'メールアドレスまたはパスワードが正しくありません',
-        ])->onlyInput('email');
+        return back()->with(
+            'message',
+            'メールアドレスまたはパスワードが正しくありません'
+        )->onlyInput('email');
     }
 
     public function logout(Request $request)

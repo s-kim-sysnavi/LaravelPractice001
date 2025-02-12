@@ -1,9 +1,14 @@
 @extends('layouts.default_before_login')
-
 @section('title', 'ログイン画面')
+
 @section('content')
 
 <h1>ログイン</h1>
+@if (session('message'))
+<script>
+    alert("{{ session('message') }}");
+</script>
+@endif
 
 <form action="{{route('login')}}" method="post">
     @csrf
