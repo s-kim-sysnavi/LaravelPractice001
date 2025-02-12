@@ -25,6 +25,7 @@ class User extends Authenticatable
         'gender',
         'join_year',
         'address',
+        'role',
 
     ];
     protected $attributes = [
@@ -55,9 +56,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function setRoleAttribute($value)
-    {
-        $this->attributes['role'] = $value ?? 'user';
-        $this->attributes['profile_image'] = $value ?? 'users/defalut.png';
-    }
+    // public function setRoleAttribute($value)
+    // {
+    //     $this->attributes['role'] = $value ?? 'user';
+    //     $this->attributes['profile_image'] = $value ?? 'users/defalut.png';
+    // }
 }

@@ -76,6 +76,8 @@
 <script src='{{ asset('js/call_login_modal.js') }}' defer></script>
 
 
+
+
 @if (session('message'))
 
 <script>

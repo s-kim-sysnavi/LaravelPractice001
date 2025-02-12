@@ -111,22 +111,126 @@
             border-radius: 10px;
             max-width: 350px;
             margin: 20px auto;
+
+        }
+
+        .login-user-icon {
+
+
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            right: 5px;
+            display: flex;
+            margin: 5px;
+            border: none;
+            object-fit: cover;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .login-user-icon:hover {
+            box-shadow: 0 4px 8px rgba(0, 150, 255, 0.9);
+        }
+
+        /* モーダルの背景 */
+        .modal {
+            display: none;
+            /* 初期状態で非表示 */
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* 背景を半透明に */
+        }
+
+        /* モーダルのコンテンツ */
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            width: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* 閉じるボタン */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* モーダル内のボタン */
+        .modal-btn {
+            display: block;
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .logout-btn {
+
+            display: block;
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
         }
     </style>
     @yield('css')
 </head>
 
 <body>
+    <script src='{{ asset('js/login_user_modal.js') }}' defer></script>
     <div class="container">
         <header> ヘッダー </header>
         <main>
-            <form action="{{route('logout')}}" method="post">
+
+            <!-- <form action="{{route('logout')}}" method="post">
                 @csrf
                 <button class="logout-button" type="submit">ログアウト</button>
-            </form>
+            </form> -->
+            <!-- プロフィール画像 -->
+            <img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像" class="login-user-icon" id="profileImage">
+
+            <!-- モーダル -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h5>{{ $user->last_name }} {{ $user->first_name }}様、よろしくお願いいたします。</h5>
+                    <a href="{{ route('user_info.profile_image', ['user' => $user]) }}" class="modal-btn">プロフィール画像</a>
+                    <a href="{{ route('user_info.show', ['user' => $user]) }}" class="modal-btn">マイページ</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="logout-btn">ログアウト</button>
+                    </form>
+                </div>
+            </div>
+
+
+
             <h2>@yield('title','社員情報管理アプリα')</h2>
             @yield('content')
-            
+
 
         </main>
         <footer> フッター</footer>

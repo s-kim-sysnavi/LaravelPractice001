@@ -27,6 +27,7 @@ class UserUpdateRequest extends FormRequest
             'gender' => ['nullable', 'string'],
             'join_year' => ['nullable', 'integer'],
             'address' => ['nullable', 'string'],
+            'role' => ['nullable', 'string'],
         ];
     }
 }

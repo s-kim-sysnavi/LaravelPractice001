@@ -74,9 +74,35 @@
         </select>
     </div>
 
-    <div class="form-input">
-        ポジション：test
+    @if ($authuser -> role== 'admin' && $user -> role != 'admin')
+    <div>
+        権限：
+        <select id="role" name="role">
+            <option value="admin" @selected(old('role', $user->role ?? '') == 'admin')>管理者</option>
+            <option value="user" @selected(old('role', $user->role ?? '') == 'user')>ユーザー</option>
+        </select>
     </div>
+    <div class="form-input">
+        ポジション：
+        <select id="position" name="position">
+            <option value=0>代表</option>
+            <option value=1>部長</option>
+            <option value=2>キャプテン</option>
+            <option value=3>エンジニア</option>
+            <option value=4>管理(総務・人事・会計)</option>
+            <option value=5>管理()</option>
+        </select>
+    </div>
+    @else
+    <div>
+        権限：{{ old('role', $user->role ) }}
+        <input type="hidden" id="role" name="role" value="{{old('role', $user->role )}}">
+    </div>
+    <div class="form-input">
+        ポジション：エンジニア
+    </div>
+    @endif
+
     <input type="submit" value="修正" class="button-link">
 </form>
 

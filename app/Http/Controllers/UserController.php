@@ -15,15 +15,17 @@ use Illuminate\Validation\Exception;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
-{
+{   
     /**
      * Display a listing of the resource.
      */
+
+    
     public function top()
     {
         //
-        $user = Auth::user();
-        return view("top", ["user" => $user]);
+        $authuser = Auth::user();
+        return view("top", ["user" => $authuser]);
     }
 
     public function index()
@@ -95,7 +97,7 @@ class UserController extends Controller
             return redirect()->route('user_info.show', ['user' => $authuser]);
         }
 
-        $updatedData = $request->only(['last_name', 'first_name', 'gender', 'address', 'join_year']);
+        $updatedData = $request->only(['last_name', 'first_name', 'gender', 'address', 'join_year','role']);
 
         $originalData = [
             'last_name' => $user->last_name,
@@ -103,6 +105,7 @@ class UserController extends Controller
             'gender' => $user->gender,
             'address' => $user->address,
             'join_year' => $user->join_year,
+            'role' =>  $user->role,
         ];
 
 

@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use app\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +27,6 @@ class AppServiceProvider extends ServiceProvider
         //
         Gate::define('compare-user', function (User $authUser, User $targetUser) {
             return $authUser->id === $targetUser->id || $authUser->role === 'admin';
-            
         });
 
         Gate::define('compare-user-delete', function (User $authUser, User $targetUser) {

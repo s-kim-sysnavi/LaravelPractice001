@@ -69,6 +69,16 @@
         @endif
 
     </div>
+    
+    <div>
+        権限：
+        <a class="old-value">{{old('role',$user -> role)}}</a>
+        @if ($request -> role != old('role',$user -> role))
+        <a class="arrow-mark">→</a>
+        <input name="role" type="text" value="{{$request -> role}}" class="new-value" readonly>
+        @endif
+
+    </div>
 
     <div class="form-input">
         ポジション：test
