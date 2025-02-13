@@ -140,11 +140,11 @@
             /* 初期状態で非表示 */
             position: fixed;
             z-index: 10;
-            left: 0;
-            top: 0;
+            left: 41%;
+            top:-25%;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            /* background-color: rgba(0, 0, 0, 0.5); */
             /* 背景を半透明に */
         }
 
@@ -210,15 +210,15 @@
                 <button class="logout-button" type="submit">ログアウト</button>
             </form> -->
             <!-- プロフィール画像 -->
-            <img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像" class="login-user-icon" id="profileImage">
+            <img src="{{ asset('storage/'.auth()->user()->profile_image) }}" alt="プロフィール画像" class="login-user-icon" id="profileImage">
 
             <!-- モーダル -->
             <div id="profileModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="closeModal">&times;</span>
-                    <h5>{{ $user->last_name }} {{ $user->first_name }}様、よろしくお願いいたします。</h5>
-                    <a href="{{ route('user_info.profile_image', ['user' => $user]) }}" class="modal-btn">プロフィール画像</a>
-                    <a href="{{ route('user_info.show', ['user' => $user]) }}" class="modal-btn">マイページ</a>
+                    <h5>{{ auth()->user()->last_name }} {{ auth()->user()->first_name }}様、よろしくお願いいたします。</h5>
+                    <a href="{{ route('user_info.profile_image', ['user' => auth()->user()]) }}" class="modal-btn">プロフィール画像</a>
+                    <a href="{{ route('user_info.show', ['user' => auth()->user()]) }}" class="modal-btn">マイページ</a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="logout-btn">ログアウト</button>

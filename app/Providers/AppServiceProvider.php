@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('admin-delete-limit', function (User $authUser, User $targetUser) {
-            return $authUser->role === 'admin' && $authUser->role === $targetUser->role;
+            return $authUser->role === 'admin' && $authUser->role === $targetUser->roles;
         });
     }
 }
