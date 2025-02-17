@@ -24,10 +24,23 @@ class UserUpdateRequest extends FormRequest
         return [
             'last_name' => ['nullable', 'string', 'max:255'],
             'first_name' => ['nullable', 'string', 'max:255'],
+            'last_name_kana' => ['nullable', 'string', 'max:255'],
+            'first_name_kana' => ['nullable', 'string', 'max:255'],
             'gender' => ['nullable', 'string'],
-            'join_year' => ['nullable', 'integer'],
-            'address' => ['nullable', 'string'],
+            'birth_date' => ['nullable', 'date'],
+            'join_date' => ['nullable', 'date'],
+            'post_code' => ['nullable', 'string', 'max:7', 'regex:/^\d{7}$/'],
+            'address1' => ['nullable', 'string'],
+            'address2' => ['nullable', 'string'],
+            'address3' => ['nullable', 'string'],
             'role' => ['nullable', 'string'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'post_code.regex' => '郵便番号は7桁の数字のみ入力してください。',
         ];
     }
 }

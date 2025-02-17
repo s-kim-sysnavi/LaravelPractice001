@@ -20,18 +20,25 @@ class User extends Authenticatable
     protected $fillable = [
         'last_name',
         'first_name',
+        'last_name_kana',
+        'first_name_kana',
         'email',
         'password',
         'gender',
-        'join_year',
-        'address',
+        'birth_date',
+        'join_date',
+
+        'post_code',
+        'address1',
+        'address2',
+        'address3',
         'role',
 
     ];
     protected $attributes = [
         'role' => 'user', // default
         'profile_image' => 'users/default.png',
-        
+
     ];
     /**
      * The attributes that should be hidden for serialization.

@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ZipcodeController;
 
 Route::get('/', [UserController::class, 'top'])->name('top')->middleware('auth');
 
@@ -13,7 +14,7 @@ Route::prefix('/user-info')->name('user_info.')->middleware('auth')->group(funct
     Route::get('/', [UserController::class, 'index'])->name('index');
 
     Route::get('/detail/{user}', [UserController::class, 'show'])->name('show');
-    Route::match(['get','post'],'/update-confirm/{user}', [UserController::class, 'update_confirm'])->name('update_confirm');
+    Route::match(['get', 'post'], '/update-confirm/{user}', [UserController::class, 'update_confirm'])->name('update_confirm');
     // Route::get('/update-confirm/{user}', [UserController::class, 'update_confirm'])->name('update_confirm');
     Route::put('/update-confirm/{user}', [UserController::class, 'update'])->name('update');
 
@@ -30,3 +31,5 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->m
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+
+Route::get('/api/address', [ZipcodeController::class, 'search']);

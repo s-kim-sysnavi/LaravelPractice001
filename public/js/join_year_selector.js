@@ -1,76 +1,73 @@
-const yearSelector = document.getElementById("yearSelector");
-const currentYear = new Date().getFullYear();
-const foundingYear = 2016;
-const years = [...Array(currentYear - foundingYear + 1).keys()].map((i) => i + foundingYear);
-let activeIndex = years.indexOf(currentYear);
-let isAnimating = false;
+document.addEventListener("DOMContentLoaded", () => {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const currentDay = new Date().getDate();
 
-function renderYears() {
-	yearSelector.innerHTML = "";
+    const foundingYear = 2016;
+    const years = Array.from({ length: currentYear - foundingYear + 1 }, (_, i) => i + foundingYear);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
-	const prevYear = years[(activeIndex - 1 + years.length) % years.length];
-	const currentYear = years[activeIndex];
-	const nextYear = years[(activeIndex + 1) % years.length];
+    let activeIndex = years.indexOf(currentYear);
+    let activeIndexMonth = months.indexOf(currentMonth);
+    let activeIndexDay = days.indexOf(currentDay);
 
-	[prevYear, currentYear, nextYear].forEach((year, idx) => {
-		const div = document.createElement("div");
-		div.className = "year";
-		div.textContent = year;
+    function render(selector, values, activeIndex) {
+        const container = selector.querySelector(".years-container, .months-container, .days-container");
+        container.innerHTML = "";
 
-		if (idx === 1) div.classList.add("active");
-		yearSelector.appendChild(div);
-	});
-	addClickRegions();
-}
+        const prev = values[(activeIndex - 1 + values.length) % values.length];
+        const current = values[activeIndex];
+        const next = values[(activeIndex + 1) % values.length];
 
-function addClickRegions() {
-	const leftRegion = document.createElement("div");
-	leftRegion.className = "click-region left";
-	leftRegion.addEventListener("click", () => animateYearChange("right"));
+        [prev, current, next].forEach((value, idx) => {
+            const div = document.createElement("div");
+            div.className = idx === 1 ? "active" : "";
+            div.textContent = value;
+            container.appendChild(div);
+        });
+        updateHiddenInput();
+    }
 
-	const rightRegion = document.createElement("div");
-	rightRegion.className = "click-region right";
-	rightRegion.addEventListener("click", () => animateYearChange("left"));
+    function updateHiddenInput() {
+        document.getElementById("join_year").value = years[activeIndex];
+        document.getElementById("join_month").value = months[activeIndexMonth];
+        document.getElementById("join_day").value = days[activeIndexDay];
+    }
 
-	yearSelector.appendChild(leftRegion);
-	yearSelector.appendChild(rightRegion);
-}
+    function animateChange(selector, values, indexVar, direction) {
+        if (selector.style.transition) return;
 
-function animateYearChange(direction) {
-	if (isAnimating) return;
-	isAnimating = true;
+        selector.style.transition = "transform 0.5s ease";
+        selector.style.transform = `translateX(${direction === "right" ? "-50px" : "50px"})`;
 
-	yearSelector.style.transition = "transform 0.5s ease";
-	yearSelector.style.transform = `translateX(${direction === "right" ? "-50px" : "50px"})`;
+        setTimeout(() => {
+            indexVar.value = direction === "right"
+                ? (indexVar.value - 1 + values.length) % values.length
+                : (indexVar.value + 1) % values.length;
 
-	setTimeout(() => {
-		activeIndex =
-			direction === "right"
-				? (activeIndex - 1 + years.length) % years.length
-				: (activeIndex + 1) % years.length;
-		yearSelector.style.transition = "none";
-		yearSelector.style.transform = "translateX(0)";
-		renderYears();
-		updateHiddenInput();
-		isAnimating = false;
-	}, 200);
-}
+            selector.style.transition = "none";
+            selector.style.transform = "translateX(0)";
+            render(selector, values, indexVar.value);
+        }, 200);
+    }
 
-function updateHiddenInput() {
-	const currentYear = years[activeIndex];
-	document.getElementById("join_year").value = currentYear;
-}
+    const yearSelector = document.getElementById("yearSelector");
+    const monthSelector = document.getElementById("monthSelector");
+    const daySelector = document.getElementById("daySelector");
 
-yearSelector.addEventListener("wheel", (event) => {
-	event.preventDefault();
-	event.stopPropagation();
+    render(yearSelector, years, activeIndex);
+    render(monthSelector, months, activeIndexMonth);
+    render(daySelector, days, activeIndexDay);
 
-	if (event.deltaY > 0) {
-		animateYearChange("left");
-	} else if (event.deltaY < 0) {
-		animateYearChange("right");
-	}
+    yearSelector.querySelector(".click-region.left").addEventListener("click", () => animateChange(yearSelector, years, { value: activeIndex }, "right"));
+    yearSelector.querySelector(".click-region.right").addEventListener("click", () => animateChange(yearSelector, years, { value: activeIndex }, "left"));
+
+    monthSelector.querySelector(".click-region.left").addEventListener("click", () => animateChange(monthSelector, months, { value: activeIndexMonth }, "right"));
+    monthSelector.querySelector(".click-region.right").addEventListener("click", () => animateChange(monthSelector, months, { value: activeIndexMonth }, "left"));
+
+    daySelector.querySelector(".click-region.left").addEventListener("click", () => animateChange(daySelector, days, { value: activeIndexDay }, "right"));
+    daySelector.querySelector(".click-region.right").addEventListener("click", () => animateChange(daySelector, days, { value: activeIndexDay }, "left"));
+
+    updateHiddenInput();
 });
-
-renderYears();
-updateHiddenInput();

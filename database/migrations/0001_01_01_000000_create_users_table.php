@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('first_name');
             $table->string('gender');
-            $table->integer('join_year');
+            $table->date('join_date');
             $table->string('address');
             $table->string('profile_image');
             $table->string('role');

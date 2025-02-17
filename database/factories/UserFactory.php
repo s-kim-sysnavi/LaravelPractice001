@@ -24,11 +24,24 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+
+            'email' => fake()->unique()->userName() . '@sysnavi.co,jp',
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'last_name' => $this->faker->lastName(),
+            'last_name_kana' => $this->faker->regexify('[ァ-ヶ]{3,5}'),
+            'first_name' => $this->faker->firstName(),
+            'first_name_kana' => $this->faker->regexify('[ァ-ヶ]{3,5}'),
+            'gender' => $this->faker->randomElement(['男性', '女性']),
+            'join_year' => $this->faker->numberBetween(2000, date('Y')),
+            'join_month' => $this->faker->numberBetween(1, 12),
+            'join_day' => $this->faker->numberBetween(1, 28),
+            'post_code' => $this->faker->regexify('\d{7}'),
+            'address1' => '東京都' . $this->faker->city(),
+            'address2' => $this->faker->streetAddress(),
+            'address3' => $this->faker->secondaryAddress(),
+            'created_at' => now(),
+            'updated_at' => now(),
+
         ];
     }
 
@@ -37,7 +50,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

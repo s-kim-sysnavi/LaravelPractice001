@@ -57,42 +57,115 @@
         right: 5px;
     }
 
-    .selector-container {
+    .year-selector {
         display: flex;
-        justify-content: space-around;
-        margin: 20px 0;
-    }
-
-    .selector {
-        position: relative;
-        width: 100px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-family: Arial, sans-serif;
+        width: 300px;
         height: 50px;
+        position: relative;
         overflow: hidden;
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        user-select: none;
+        background-color: #ddd;
+        border-radius: 15px;
     }
 
-    .active {
-        font-size: 24px;
-        color: red;
+    .year {
+        font-size: 15px;
+        opacity: 0.5;
+        transition: all 0.3s;
     }
+
+    .year.active {
+        font-size: 40px;
+        color: blue;
+        font-weight: bold;
+        opacity: 1;
+        animation: bounce 0.5s;
+    }
+
+    .year-selector>div {
+        display: flex;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: transform 0.5s ease;
+    }
+
+    .years-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* @ keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40 % {
+            transform:
+                translateY(-10px);
+        }
+
+        60 % {
+            transform:
+                translateY(-5px);
+        }
+    } */
 
     .click-region {
-        position: absolute;
-        top: 0;
-        width: 50%;
-        height: 100%;
+        width: 30px;
+        height: 30px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #555;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .click-region:hover {
+        background-color: #333;
+    }
+
+    .click-region::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        position: absolute;
+    }
+
+    .click-region.left::before {
+        border-width: 6px 10px 6px 0;
+        border-color: transparent white transparent transparent;
+        left: 8px;
+    }
+
+    .click-region.right::before {
+        border-width: 6px 0 6px 10px;
+        border-color: transparent transparent transparent white;
+        right: 8px;
     }
 
     .click-region.left {
-        left: 0;
+        position: relative;
+        order: -10;
     }
 
     .click-region.right {
-        right: 0;
+        position: relative;
+        order: 10;
     }
 </style>
 @endsection
@@ -100,12 +173,9 @@
 @section('content')
 
 <h1>会員登録画面</h1>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src='{{ asset('js/gender_toggle_button.js') }}' defer></script>
-<!-- <script src='{{ asset('js/join_year_selector.js') }}' defer></script> -->
+<script src='{{ asset('js/join_year_selector.js') }}' defer></script>
 <script src='{{ asset('js/register_form_validation.js') }}' defer></script>
-<script src='{{ asset('js/post_code_search.js') }}' defer></script>
-
 <!-- <script>
     alert("<%=message%>");
 </script> -->
@@ -123,7 +193,6 @@
 <script>
     alert("{{ $errors->first() }}");
 </script>
-
 @endif
 <form action="{{route('user_info.store')}}" method="post" enctype="multipart/form-data">
     @csrf
@@ -169,104 +238,39 @@
     </div>
     <div id="genderError" class="error"></div>
 
-    <div>
-        生年月日：
-        <select id="birth_year" name="birth_year" required>
-            @for ($year = 1950; $year <= $today; $year++){
-                <option value="{{ $year }}" {{ old('birth_year',$today-20) == $year ? 'selected' : '' }}>
-                {{ $year }}年
-                </option>
-                }@endfor
-        </select>
-
-        <select id="birth_month" name="birth_month" required>
-            @for ($month = 1; $month <= 12; $month++)
-                <option value="{{ $month }}"
-                {{ old('birth_month') == $month ? 'selected' : '' }}>
-                {{ $month }}月
-                </option>
-                @endfor
-        </select>
-
-        <select id="birth_day" name="birth_day" required>
-            @for ($day = 1; $day <= 31; $day++)
-                <option value="{{ $day }}"
-                {{ old('birth_day') == $day ? 'selected' : '' }}>
-                {{ $day }}日
-                </option>
-                @endfor
-        </select>
-    </div>
-
-
     <label for="address">住所:</label>
     <div id="address" class="address"></div>
-    <p> 郵便番号： <input type="text" id="post_code" name="post_code" maxlength="7" value="{{ old('post_code') }}" required>
-        <button type="button" id="search">検索</button>
+    <p> 郵便番号：<input type="number" id="post_code" name="post_code" class="form-input" value="{{old('post_code')}}" required>
     </p>
-    <div id="postCodeError" class="error"></div>
+    <p>住所1(都道府県)： <input type="text" id="address1" name="address1" class="form-input" value="{{old('address1')}}" required>
+    </p>
+    <p>住所2(市町村)：  <input type="text" id="address2" name="address2" class="form-input" value="{{old('address2')}}" required>
+    </p>
+    <p>住所3(その他)：  <input type="text" id="address3" name="address3" class="form-input" value="{{old('address3')}}" required>
+    </p>
 
-    <label for="address1">都道府県:</label>
-    <input type="text" id="address1" name="address1" value="{{ old('address1') }}">
+    <div id="addressError" class="error"></div>
 
-    <label for="address2">市区町村:</label>
-    <input type="text" id="address2" name="address2" value="{{ old('address2') }}">
-
-    <label for="address3">丁番:</label>
-    <input type="text" id="address3" name="address3" value="{{ old('address3') }}">
-
-    <div id="address1Error" class="error"></div>
-    <div id="address2Error" class="error"></div>
-    <div id="address3Error" class="error"></div>
-    <div>
-        入社日：
-        <select id="join_year" name="join_year" required>
-            @foreach ($join_year as $year){
-            <option value="{{ $year }}" {{ old('join_year',$today) == $year ? 'selected' : '' }}>
-                {{ $year }}月
-            </option>
-            }@endforeach
-        </select>
-
-        <select id="join_month" name="join_month" required>
-            @for ($month = 1; $month <= 12; $month++)
-                <option value="{{ $month }}" {{ old('join_month') == $month ? 'selected' : '' }}>
-                {{ $month }}月
-                </option>
-                @endfor
-        </select>
-
-        <select id="join_day" name="join_day" required>
-            @for ($day=1 ; $day<=31 ; $day++ ){
-                <option value="{{ $day }}" {{ old('join_day') == $day ? 'selected' : '' }}>
-                {{ $day }}日
-                </option>
-                }@endfor
-        </select>
+    <label for="join_year">入社年度:</label>
+    <div class="year-selector" id="yearSelector">
+        <div class="click-region left"></div>
+        <div class="years-container"></div>
+        <div class="click-region right"></div>
     </div>
-
-
-    <!-- <div class="selector-container">
-        <div id="yearSelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="years-container"></div>
-            <div class="click-region right"></div>
-        </div>
-        <div id="monthSelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="months-container"></div>
-            <div class="click-region right"></div>
-        </div>
-        <div id="daySelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="days-container"></div>
-            <div class="click-region right"></div>
-        </div>
+    <div class="month-selector" id="monthSelector">
+        <div class="click-region left"></div>
+        <div class="months-container"></div>
+        <div class="click-region right"></div>
     </div>
-
+    <div class="day-selector" id="daySelector">
+        <div class="click-region left"></div>
+        <div class="days-container"></div>
+        <div class="click-region right"></div>
+    </div>
     <input type="hidden" id="join_year" name="join_year" required>
     <input type="hidden" id="join_month" name="join_month" required>
-    <input type="hidden" id="join_day" name="join_day" required> -->
+    <input type="hidden" id="join_day" name="join_day" required>
+
 
 
     <button type="submit" class="button-link">登録</button>

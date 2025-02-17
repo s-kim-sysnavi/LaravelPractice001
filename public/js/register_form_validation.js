@@ -5,8 +5,10 @@ const fieldStates = {
 	passwordconfirm: false,
 	lastname: false,
 	firstname: false,
+	lastnamekana: false,
+	firstnamekana: false,
 	//	gender: false,
-	address: false,
+	// address: false,
 	// joinyear: false
 };
 
@@ -20,10 +22,21 @@ const lastnameInput = document.getElementById('last_name');
 const lastnameError = document.getElementById('lastNameError');
 const firstnameInput = document.getElementById('first_name');
 const firstnameError = document.getElementById('firstNameError');
+const lastnamekanaInput = document.getElementById('last_name_kana');
+const lastnamekanaError = document.getElementById('lastNameKanaError');
+const firstnamekanaInput = document.getElementById('first_name_kana');
+const firstnamekanaError = document.getElementById('firstNameKanaError');
+const postcodeInput = document.getElementById('post_code');
+const postcodeError = document.getElementById('postCodeError');
+
 //const seiInput = document.getElementById('sei');
 //const seiError = document.getElementById('seiError');
-const addressInput = document.getElementById('address');
-const addressError = document.getElementById('addressError');
+const address1Input = document.getElementById('address1');
+const address1Error = document.getElementById('address1Error');
+const address2Input = document.getElementById('address2');
+const address2Error = document.getElementById('address2Error');
+const address3Input = document.getElementById('address3');
+const address3Error = document.getElementById('address3Error');
 // const joinyearInput = document.getElementById('join_year');
 // const joinyearError = document.getElementById('joinYearError');
 const submitButton = document.querySelector('button[type="submit"]');
@@ -114,6 +127,47 @@ function validateLastName() {
 	toggleSubmitButton();
 }
 
+function validateLastNameKana() {
+	const value = lastnamekanaInput.value;
+
+	if (value.trim() === '') {
+		lastnamekanaError.textContent = '苗字(カナ)を入力してください';
+		fieldStates.lastnamekana = false;
+	}
+	else {
+		lastnamekanaError.textContent = '';
+		fieldStates.lastnamekana = true;
+	}
+	toggleSubmitButton();
+}
+
+function validateFirstNameKana() {
+	const value = firstnamekanaInput.value;
+
+	if (value.trim() === '') {
+		firstnamekanaError.textContent = '名前(カナ)を入力してください';
+		fieldStates.firstnamekana = false;
+	}
+	else {
+		firstnamekanaError.textContent = '';
+		fieldStates.firstnamekana = true;
+	}
+	toggleSubmitButton();
+}
+
+function validatePostCode() {
+	const value = postcodeInput.value;
+
+	if (value.trim() === '') {
+		postcodeError.textContent = '郵便番号を入力してください';
+		fieldStates.postcode = false;
+	}
+	else {
+		postcodeError.textContent = '';
+		fieldStates.postcode = true;
+	}
+	toggleSubmitButton();
+}
 
 
 //function validateGender() {
@@ -130,19 +184,52 @@ function validateLastName() {
 //	toggleSubmitButton();
 //}
 
-function validateAddress() {
-	const value = addressInput.value;
+
+
+
+function validateAddress1() {
+	const value = address1Input.value;
 
 	if (value.trim() === '') {
-		addressError.textContent = '住所を入力してください';
-		fieldStates.address = false;
+		address1Error.textContent = '住所1を入力してください';
+		fieldStates.address1 = false;
 	}
 	else {
-		addressError.textContent = '';
-		fieldStates.address = true;
+		address1Error.textContent = '';
+		fieldStates.address1 = true;
 	}
 	toggleSubmitButton();
 }
+
+function validateAddress2() {
+	const value = address2Input.value;
+
+	if (value.trim() === '') {
+		address2Error.textContent = '住所2を入力してください';
+		fieldStates.address2 = false;
+	}
+	else {
+		address2Error.textContent = '';
+		fieldStates.address2 = true;
+	}
+	toggleSubmitButton();
+}
+
+function validateAddress3() {
+	const value = address3Input.value;
+
+	if (value.trim() === '') {
+		address3Error.textContent = '住所3を入力してください';
+		fieldStates.address3 = false;
+	}
+	else {
+		address3Error.textContent = '';
+		fieldStates.address3 = true;
+	}
+	toggleSubmitButton();
+}
+
+
 
 // function validateJoinYear() {
 // 	const value = nenInput.value;
@@ -169,8 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	validatePasswordConfirm();
 	validateLastName();
 	validateFirstName();
+	validateLastNameKana();
+	validateFirstNameKana();
+	validatePostCode();
 	//	validateGender();
-	validateAddress();
+	validateAddress1();
+	validateAddress2();
+	validateAddress3();
 	// validateJoinYear();
 });
 
@@ -179,9 +271,14 @@ passwordInput.addEventListener('input', validatePassword);
 passwordconfirmInput.addEventListener('input', validatePasswordConfirm);
 lastnameInput.addEventListener('input', validateLastName);
 firstnameInput.addEventListener('input', validateFirstName);
+lastnamekanaInput.addEventListener('input', validateLastNameKana);
+firstnamekanaInput.addEventListener('input', validateFirstNameKana);
+postcodeInput.addEventListener('input', validatePostCode);
 
 //seiInput.addEventListener('input', validateGender);
 
-addressInput.addEventListener('input', validateAddress);
+address1Input.addEventListener('input', validateAddress1);
+address2Input.addEventListener('input', validateAddress2);
+address3Input.addEventListener('input', validateAddress3);
 // joinyearInput.addEventListener('input', validateJoinYear);
 
