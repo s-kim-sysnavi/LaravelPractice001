@@ -150,21 +150,16 @@
             box-shadow: 0 4px 8px rgba(0, 150, 255, 0.9);
         }
 
-        /* モーダルの背景 */
         .modal {
             display: none;
-            /* 初期状態で非表示 */
             position: fixed;
             z-index: 10;
             left: 37%;
             top: -25%;
             width: 100%;
             height: 100%;
-            /* background-color: rgba(0, 0, 0, 0.5); */
-            /* 背景を半透明に */
         }
 
-        /* モーダルのコンテンツ */
         .modal-content {
             background-color: white;
             padding: 20px;
@@ -177,7 +172,6 @@
             text-align: center;
         }
 
-        /* 閉じるボタン */
         .close {
             position: absolute;
             top: 10px;
@@ -186,7 +180,6 @@
             cursor: pointer;
         }
 
-        /* モーダル内のボタン */
         .modal-btn {
             display: block;
             width: 70%;
@@ -220,12 +213,6 @@
     <div class="container">
         <header> ヘッダー </header>
         <main>
-
-            <!-- <form action="{{route('logout')}}" method="post">
-                @csrf
-                <button class="logout-button" type="submit">ログアウト</button>
-            </form> -->
-            <!-- プロフィール画像 -->
             <div>
                 <a class="login-user-icon-name">
                     <p>{{ auth()->user()->last_name." ".auth()->user()->first_name }}</p>
@@ -235,7 +222,6 @@
 
             </div>
 
-            <!-- モーダル -->
             <div id="profileModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="closeModal">&times;</span>

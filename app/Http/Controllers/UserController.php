@@ -56,9 +56,19 @@ class UserController extends Controller
         try {
 
             // ドロップダウン(年、月、日)で受けた値をbirth_date(生年月日)の形式に合わせて変数に代入
-            $birth_date_input = sprintf('%04d-%02d-%02d', $request->birth_year, $request->birth_month, $request->birth_day);
+            $birth_date_input = sprintf(
+                '%04d-%02d-%02d',
+                $request->birth_year,
+                $request->birth_month,
+                $request->birth_day
+            );
             // ドロップダウン(年、月、日)で受けた値をjoin_date(入社日)の形式に合わせて変数に代入
-            $join_date_input = sprintf('%04d-%02d-%02d', $request->join_year, $request->join_month, $request->join_day);
+            $join_date_input = sprintf(
+                '%04d-%02d-%02d',
+                $request->join_year,
+                $request->join_month,
+                $request->join_day
+            );
 
             // バリデーションを行ったデータを変数に代入
             $validated = $request->validated();
@@ -107,7 +117,12 @@ class UserController extends Controller
 
         // 勤続期間演算
         $interval = $join_date_show->diff($today);
-        $elapsed_time = sprintf("%d年%dヶ月%d日", $interval->y, $interval->m, $interval->d);
+        $elapsed_time = sprintf(
+            "%d年%dヶ月%d日",
+            $interval->y,
+            $interval->m,
+            $interval->d
+        );
 
         // 年齢演算
         $age = $birth_date_show->diff($today)->y;
@@ -117,7 +132,20 @@ class UserController extends Controller
             return redirect('top');
         }
 
-        return view('user_info.detail', ['user' => $user, 'years' => $years, 'authuser' => $authuser, 'elapsed_time' => $elapsed_time,  'age' => $age, 'today_input_year' => $today_input_year, 'birth_year' => $birth_year, 'birth_month' => $birth_month, 'birth_day' => $birth_day, 'join_year' => $join_year, 'join_month' => $join_month, 'join_day' => $join_day]);
+        return view('user_info.detail', [
+            'user' => $user,
+            'years' => $years,
+            'authuser' => $authuser,
+            'elapsed_time' => $elapsed_time,
+            'age' => $age,
+            'today_input_year' => $today_input_year,
+            'birth_year' => $birth_year,
+            'birth_month' => $birth_month,
+            'birth_day' => $birth_day,
+            'join_year' => $join_year,
+            'join_month' => $join_month,
+            'join_day' => $join_day
+        ]);
     }
 
     // アップデート確認画面の表示
@@ -144,7 +172,26 @@ class UserController extends Controller
         }
 
         // 入力したデータを抽出
-        $updatedData = $request->only(['last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'gender', 'post_code', 'address1', 'address2', 'address3', 'join_year', 'join_month', 'join_day', 'role', 'birth_year', 'birth_month',  'birth_day', 'birth_date', "join_date"]);
+        $updatedData = $request->only([
+            'last_name',
+            'first_name',
+            'last_name_kana',
+            'first_name_kana',
+            'gender',
+            'post_code',
+            'address1',
+            'address2',
+            'address3',
+            'join_year',
+            'join_month',
+            'join_day',
+            'role',
+            'birth_year',
+            'birth_month',
+            'birth_day',
+            'birth_date',
+            "join_date"
+        ]);
 
         // 入力した年・月・日をDBの値と同様形式に変換
         $updatedData['birth_date'] = Carbon::createFromDate(
@@ -159,8 +206,16 @@ class UserController extends Controller
         )->format('Y-m-d');
 
         // 比較に不要な項目は配列から除去
-        unset($updatedData['birth_year'], $updatedData['birth_month'], $updatedData['birth_day']);
-        unset($updatedData['join_year'], $updatedData['join_month'], $updatedData['join_day']);
+        unset(
+            $updatedData['birth_year'],
+            $updatedData['birth_month'],
+            $updatedData['birth_day']
+        );
+        unset(
+            $updatedData['join_year'],
+            $updatedData['join_month'],
+            $updatedData['join_day']
+        );
 
         // 比較用(入力内容があるか)配列生成
         $originalData = [
@@ -180,7 +235,10 @@ class UserController extends Controller
 
         // 入力(内容修正)がなければ、エラーメッセージを渡し、ユーザー情報詳細ページに遷移させる
         if ($updatedData == $originalData) {
-            return redirect()->route('user_info.show', ['user' => $user])->with('message', '内容を変更して、修正を押下してください。');
+            return redirect()->route(
+                'user_info.show',
+                ['user' => $user]
+            )->with('message', '内容を変更して、修正を押下してください。');
         }
 
         return view('user_info.update_confirm', [
@@ -227,7 +285,8 @@ class UserController extends Controller
 
         // ユーザー情報を更新、更新後はユーザー情報詳細画面へ遷移
         $user->update($updateDate);
-        return to_route('user_info.show', ['user' => $user])->with('message', 'ユーザー情報更新完了');
+        return to_route('user_info.show', ['user' => $user])
+            ->with('message', 'ユーザー情報更新完了');
     }
 
     // ユーザー情報削除確認画面の表示
@@ -239,12 +298,11 @@ class UserController extends Controller
         // 対象ユーザーがadmin権限の場合、ユーザー情報詳細画面へ遷移させる
         if (Gate::allows('admin-delete-limit', $user)) {
             return redirect()->route('user_info.show', ['user' => $authuser]);
-        // admin権限を持っていない場合、ユーザー情報詳細画面へ遷移させる
+            // admin権限を持っていない場合、ユーザー情報詳細画面へ遷移させる
         } elseif (Gate::denies('compare-user-delete', $user)) {
             return redirect()->route('user_info.show', ['user' => $authuser]);
         }
         return view('user_info.delete_confirm', ['user' => $user]);
-
     }
 
     // ユーザー情報の削除処理
@@ -259,7 +317,8 @@ class UserController extends Controller
     // プロフィール画像アップロード画面の表示
     public function profile_image(User $user)
     {
-        //他ユーザーのプロフィール画像アップロード画面にアクセスしようとしたら、ユーザー情報詳細画面へ遷移させる(adimin権限は例外)
+        //他ユーザーのプロフィール画像アップロード画面にアクセスしようとしたら、
+        // ユーザー情報詳細画面へ遷移させる(adimin権限は例外)
         $authuser = Auth::user();
         if (Gate::denies('compare-user', $user)) {
             return redirect()->route('user_info.show', ['user' => $authuser]);
@@ -275,19 +334,19 @@ class UserController extends Controller
         if ($request->hasFile('profile_image')) {
             // ファイルを変数に代入
             $file = $request->file('profile_image');
-            
+
             if ($file !== null) {
                 // ファイルをstorage/app/public/usersに保存
                 $savedFilePath = $file->store('users', 'public');
                 //ユーザーのプロフィール画像経路情報を保存したファイルの経路にする 
                 $user->profile_image =  $savedFilePath;
 
-            // ファイルがなければ、既存のファイルを維持する
+                // ファイルがなければ、既存のファイルを維持する
             } else {
                 Log::error('ファイルが取得できませんでした');
                 $savedFilePath = old($user->profile_image);
             }
-        // ファイルがなければ、既存のファイルを維持する
+            // ファイルがなければ、既存のファイルを維持する
         } else {
             Log::warning('ファイルがアップロードされていません');
             $savedFilePath = old($user->profile_image);
@@ -295,6 +354,7 @@ class UserController extends Controller
 
         // ユーザー情報を更新(プロフィール画像の経路)
         $user->save();
-        return to_route('user_info.show', ['user' => $user])->with('message', 'プロフィール画像、アップロード完了');
+        return to_route('user_info.show', ['user' => $user])
+            ->with('message', 'プロフィール画像、アップロード完了');
     }
 }

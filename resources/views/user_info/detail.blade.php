@@ -20,7 +20,8 @@
         color: #666;
         cursor: not-allowed;
     }
-    .info{
+
+    .info {
         font-size: 0.6rem;
         color: grey;
     }
@@ -37,7 +38,8 @@
 </script>
 @endif
 
-<form action="{{route('user_info.update_confirm',['user' => $user])}}" method="post" enctype="multipart/form-data">
+<form action="{{route('user_info.update_confirm',['user' => $user])}}"
+    method="post" enctype="multipart/form-data">
     @csrf
 
     <div>
@@ -51,16 +53,20 @@
     <div class="form-input">
         氏名：
         <label for="last_name"></label>
-        <input id="last_name" name="last_name" type="text" value="{{old("last_name",$user->last_name)}}">
+        <input id="last_name" name="last_name" type="text"
+            value="{{old("last_name",$user->last_name)}}">
         <label for="first_name"></label>
-        <input id="first_name" name="first_name" type="text" value="{{old("first_name",$user->first_name)}}">
+        <input id="first_name" name="first_name" type="text"
+            value="{{old("first_name",$user->first_name)}}">
     </div>
     <div class="form-input">
         氏名(カナ)：
         <label for="last_name_kana"></label>
-        <input id="last_name_kana" name="last_name_kana" type="text" value="{{old("last_name_kana",$user->last_name_kana)}}">
+        <input id="last_name_kana" name="last_name_kana" type="text"
+            value="{{old("last_name_kana",$user->last_name_kana)}}">
         <label for="first_name_kana"></label>
-        <input id="first_name_kana" name="first_name_kana" type="text" value="{{old("first_name_kana",$user->first_name_kana)}}">
+        <input id="first_name_kana" name="first_name_kana" type="text"
+            value="{{old("first_name_kana",$user->first_name_kana)}}">
     </div>
     <div class="form-input">
         <label for="gender">性別:</label>
@@ -84,14 +90,16 @@
 
         <select id="birth_month" name="birth_month" required>
             @for ($month=1 ; $month<=12 ; $month++ ){
-                <option value="{{ $month }}" @selected(old('birth_month', $birth_month ?? '' )==$month)>{{ $month }}月</option>
+                <option value="{{ $month }}"
+                @selected(old('birth_month', $birth_month ?? '' )==$month)>{{ $month }}月</option>
 
                 }@endfor
         </select>
 
         <select id="birth_day" name="birth_day" required>
             @for ($day=1 ; $day<=31 ; $day++ ){
-                <option value="{{ $day }}" @selected(old('birth_day', $birth_day ?? '' )==$day)>{{ $day }}日</option>
+                <option value="{{ $day }}"
+                @selected(old('birth_day', $birth_day ?? '' )==$day)>{{ $day }}日</option>
                 }@endfor
         </select>
 
@@ -104,13 +112,17 @@
 
     <div class="form-input">
         <p>
-            〒<input type="text" id="post_code" name="post_code" maxlength="7" value="{{ old('post_code',$user -> post_code) }}" required>
+            〒<input type="text" id="post_code" name="post_code"
+                maxlength="7" value="{{ old('post_code',$user -> post_code) }}" required>
             <button type="button" id="search">検索</button>
         </p>
         <p>住所：
-            <input type="text" id="address1" name="address1" value="{{ old('address1',$user -> address1) }}">
-            <input type="text" id="address2" name="address2" value="{{ old('address2',$user -> address2) }}">
-            <input type="text" id="address3" name="address3" value="{{ old('address3',$user -> address3) }}">
+            <input type="text" id="address1" name="address1"
+                value="{{ old('address1',$user -> address1) }}">
+            <input type="text" id="address2" name="address2"
+                value="{{ old('address2',$user -> address2) }}">
+            <input type="text" id="address3" name="address3"
+                value="{{ old('address3',$user -> address3) }}">
         </p>
     </div>
 
@@ -120,18 +132,21 @@
         入社日：
         <select id="join_year" name="join_year" required>
             @foreach ($years as $year)
-            <option value="{{ $year }}" @selected(old('join_year', $join_year ?? '' )==$year)>{{ $year }}年</option>
+            <option value="{{ $year }}"
+                @selected(old('join_year', $join_year ?? '' )==$year)>{{ $year }}年</option>
             @endforeach
         </select>
         <select id="join_month" name="join_month" required>
             @for ($month=1 ; $month<=12 ; $month++ ){
-                <option value="{{ $month }}" @selected(old('join_month', $join_month ?? '' )==$month)>{{ $month }}月</option>
+                <option value="{{ $month }}"
+                @selected(old('join_month', $join_month ?? '' )==$month)>{{ $month }}月</option>
 
                 }@endfor
         </select>
         <select id="join_day" name="join_day" required>
             @for ($day=1 ; $day<=31 ; $day++ ){
-                <option value="{{ $day }}" @selected(old('join_day', $join_day ?? '' )==$day)>{{ $day }}日</option>
+                <option value="{{ $day }}"
+                @selected(old('join_day', $join_day ?? '' )==$day)>{{ $day }}日</option>
 
                 }@endfor
         </select>
@@ -145,8 +160,10 @@
     <div>
         権限：
         <select id="role" name="role">
-            <option value="admin" @selected(old('role', $user->role ?? '') == 'admin')>管理者</option>
-            <option value="user" @selected(old('role', $user->role ?? '') == 'user')>ユーザー</option>
+            <option value="admin"
+                @selected(old('role', $user->role ?? '') == 'admin')>管理者</option>
+            <option value="user"
+                @selected(old('role', $user->role ?? '') == 'user')>ユーザー</option>
         </select>
     </div>
     <div class="form-input">
@@ -170,10 +187,10 @@
     </div>
     <div class="info">
         <p>
-                情報登録日：{{$user -> created_at}}
+            情報登録日：{{$user -> created_at}}
         </p>
         <p>
-                情報更新日：{{$user -> updated_at}}
+            情報更新日：{{$user -> updated_at}}
         </p>
     </div>
     @endif

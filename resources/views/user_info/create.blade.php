@@ -128,19 +128,23 @@
     <br>
 
     <label for="last_name">姓:</label>
-    <input type="text" id="last_name" name="last_name" class="form-input" value="{{old('last_name')}}" required>
+    <input type="text" id="last_name" name="last_name" class="form-input"
+        value="{{old('last_name')}}" required>
     <div id="lastNameError" class="error"></div>
 
     <label for="first_name">名:</label>
-    <input type="text" id="first_name" name="first_name" class="form-input" value="{{old('first_name')}}" required>
+    <input type="text" id="first_name" name="first_name"
+        class="form-input" value="{{old('first_name')}}" required>
     <div id="firstNameError" class="error"></div>
 
     <label for="last_name_kana">姓(カナ):</label>
-    <input type="text" id="last_name_kana" name="last_name_kana" class="form-input" value="{{old('last_name_kana')}}" required>
+    <input type="text" id="last_name_kana" name="last_name_kana"
+        class="form-input" value="{{old('last_name_kana')}}" required>
     <div id="lastNameKanaError" class="error"></div>
 
     <label for="first_name_kana">名(カナ):</label>
-    <input type="text" id="first_name_kana" name="first_name_kana" class="form-input" value="{{old('first_name_kana')}}" required>
+    <input type="text" id="first_name_kana" name="first_name_kana"
+        class="form-input" value="{{old('first_name_kana')}}" required>
     <div id="firstNameKanaError" class="error"></div>
 
     <label for="gender">性別:</label>
@@ -159,7 +163,8 @@
         生年月日：
         <select id="birth_year" name="birth_year" required>
             @for ($year = 1950; $year <= $today; $year++){
-                <option value="{{ $year }}" {{ old('birth_year',$today-20) == $year ? 'selected' : '' }}>
+                <option value="{{ $year }}"
+                {{ old('birth_year',$today-20) == $year ? 'selected' : '' }}>
                 {{ $year }}年
                 </option>
                 }@endfor
@@ -187,7 +192,8 @@
 
     <label for="address">住所:</label>
     <div id="address" class="address"></div>
-    <p> 郵便番号： <input type="text" id="post_code" name="post_code" maxlength="7" value="{{ old('post_code') }}" required>
+    <p> 郵便番号： <input type="text" id="post_code" name="post_code"
+            maxlength="7" value="{{ old('post_code') }}" required>
         <button type="button" id="search">検索</button>
     </p>
     <div id="postCodeError" class="error"></div>

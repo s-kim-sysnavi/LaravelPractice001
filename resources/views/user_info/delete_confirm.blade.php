@@ -94,25 +94,31 @@
     @csrf
     @method('DELETE')
 
-    
+
 
     <p>
-        <a class="key"><label for="id">ID:</label></a><a class="value">{{old('id',$user -> id)}}</a>
+        <a class="key"><label for="id">ID:</label></a><a
+            class="value">{{old('id',$user -> id)}}</a>
     </p>
     <p>
-        <a class="key"><label for="email">Email:</label></a><a class="value">{{old('email',$user -> email)}}</a>
+        <a class="key"><label for="email">Email:</label></a><a
+            class="value">{{old('email',$user -> email)}}</a>
     </p>
     <p>
-        <a class="key"><label for="name">名前:</label></a><a class="value">{{old('last_name',$user -> last_name)}} {{old('first_name',$user -> first_name)}}</a>
+        <a class="key"><label for="name">名前:</label></a><a
+            class="value">{{old('last_name',$user -> last_name)}} {{old('first_name',$user -> first_name)}}</a>
     </p>
     <p>
-        <a class="key"><label for="gender">性別:</label></a><a class="value">{{old('gender',$user -> gender)}}</a>
+        <a class="key"><label for="gender">性別:</label></a><a
+            class="value">{{old('gender',$user -> gender)}}</a>
     </p>
     <p>
-        <a class="key"><label for="address">住所:</label></a><a class="value">{{old('address',$user -> address)}}</a>
+        <a class="key"><label for="address">住所:</label></a><a
+            class="value">{{old('address',$user -> address)}}</a>
     </p>
     <p>
-        <a class="key"><label for="join_year">入社年度:</label></a><a class="value">{{old('join_year',$user -> join_year)}}</a>
+        <a class="key"><label for="join_year">入社年度:</label></a><a
+            class="value">{{old('join_year',$user -> join_year)}}</a>
     </p>
     <button type="button" class="button-link" id="openModalBtn">削除</button>
 </form>

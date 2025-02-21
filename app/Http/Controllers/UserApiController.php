@@ -8,17 +8,36 @@ use App\Models\User;
 // ユーザー情報取得用のAPI関連コントローラー
 class UserApiController extends Controller
 {
- 
+
     // 全てのユーザー情報取得
     public function index(Request $request)
     {
         // クエリパラメータからフィールドを取得し、デフォルト値を設定
-        $fields = explode(',', $request->query('fields', 'id,last_name,first_name,last_name_kana,first_name_kana,email,created_at,updated_at'));
-        
-        // 許可されたフィールドのリスト
-        $allowedFields = ['id', 'last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'email', 'gender', 'birth_date', 'join_date', 'post_code', 'address1', 'address2', 'address3', 'created_at', 'updated_at'];
+        $fields = explode(',', $request->query(
+            'fields',
+            'id,last_name,first_name,last_name_kana,first_name_kana,email,created_at,updated_at'
+        ));
 
-         // 許可されたフィールドのみを抽出
+        // 許可されたフィールドのリスト
+        $allowedFields = [
+            'id',
+            'last_name',
+            'first_name',
+            'last_name_kana',
+            'first_name_kana',
+            'email',
+            'gender',
+            'birth_date',
+            'join_date',
+            'post_code',
+            'address1',
+            'address2',
+            'address3',
+            'created_at',
+            'updated_at'
+        ];
+
+        // 許可されたフィールドのみを抽出
         $fields = array_intersect($fields, $allowedFields);
 
         // フィールドが空の場合のエラーハンドリング
@@ -37,10 +56,29 @@ class UserApiController extends Controller
     public function show(user $user, Request $request)
     {
         // クエリパラメータからフィールドを取得し、デフォルト値を設定
-        $fields = explode(',', $request->query('fields', 'id,last_name,first_name,last_name_kana,first_name_kana,email,created_at,updated_at'));
+        $fields = explode(',', $request->query(
+            'fields',
+            'id,last_name,first_name,last_name_kana,first_name_kana,email,created_at,updated_at'
+        ));
 
         // 許可されたフィールドのリスト
-        $allowedFields = ['id', 'last_name', 'first_name', 'last_name_kana', 'first_name_kana',  'email', 'gender', 'birth_date', 'join_date', 'post_code', 'address1', 'address2', 'address3', 'created_at', 'updated_at'];
+        $allowedFields = [
+            'id',
+            'last_name',
+            'first_name',
+            'last_name_kana',
+            'first_name_kana',
+            'email',
+            'gender',
+            'birth_date',
+            'join_date',
+            'post_code',
+            'address1',
+            'address2',
+            'address3',
+            'created_at',
+            'updated_at'
+        ];
 
         // 許可されたフィールドのみを抽出
         $fields = array_intersect($fields, $allowedFields);

@@ -70,13 +70,14 @@
 <p id="file-info"></p>
 <div id="preview" class="preview"></div>
 <p>
-    
+
 <div id="drag-and-drop" class="drag-and-drop">
     <p>ここにファイルをドラッグアンドドロップしてください。</p>
 </div>
 </p>
 
-<form id="upload-form" action="{{route('user_info.profile_image_update',['user' => $user])}}" method="post"
+<form id="upload-form"
+    action="{{route('user_info.profile_image_update',['user' => $user])}}" method="post"
     enctype="multipart/form-data">
     @csrf
     <input type="file" name="profile_image" id="file"

@@ -14,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
 
-        // リクエストのurlがapi関連であれば、認証は不要、他は認証しないとユーザー登録、ログイン画面しか表示されない
+        // リクエストのurlがapi関連であれば、認証は不要、他は認証しないとユーザー登録、
+        // ログイン画面しか表示されない
         $requestUri = $_SERVER['REQUEST_URI'] ?? '';
         if (!str_starts_with($requestUri, '/api/')) {
             $middleware->redirectGuestsTo(fn() => route('login'));

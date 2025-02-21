@@ -71,7 +71,9 @@
     <tr>
 
         <td>{{$user -> id}}</td>
-        <td> <a href="{{route('user_info.profile_image',['user'=>$user])}}"><img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像" class="user-icon" id="profileImage"></a>
+        <td> <a href="{{route('user_info.profile_image',['user'=>$user])}}">
+                <img src="{{ asset('storage/'.$user->profile_image) }}"
+                    alt="プロフィール画像" class="user-icon" id="profileImage"></a>
         </td>
         <td>{{$user -> email}}</td>
         <td>{{$user -> role}}</td>
@@ -80,13 +82,17 @@
             <p class="kana-name">({{$user -> last_name_kana.' '.$user -> first_name_kana}})</p>
         </td>
         <td>{{$user -> gender}}</td>
-        <td>〒{{ substr(strval($user-> post_code),0,3).'-'.substr(strval($user-> post_code),3) }} {{$user -> address1.$user-> address2.$user-> address3}}</td>
+        <td>〒{{ substr(strval($user-> post_code),0,3).
+        '-'.substr(strval($user-> post_code),3) }}
+            {{$user -> address1.$user-> address2.$user-> address3}}
+        </td>
         <td>{{$user -> join_date}}</td>
         <td><a href="{{route('user_info.show',['user'=> $user])}}" class="button-link">詳細</a></td>
         @if ($user->role == 'admin' && $user->role == $authuser -> role)
         <td><a>-</a></td>
         @else
-        <td><a href="{{route('user_info.delete_confirm',['user'=> $user])}}" class="button-link">削除</a></td>
+        <td><a href="{{route('user_info.delete_confirm',['user'=> $user])}}"
+                class="button-link">削除</a></td>
         @endif
 
 
@@ -98,9 +104,12 @@
         <td>{{$user -> id}}</td>
         <td>
             @if ($user -> id == $authuser ->id)
-            <a href="{{route('user_info.profile_image',['user'=>$user])}}"><img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像" class="user-icon" id="profileImage"></a>
+            <a href="{{route('user_info.profile_image',['user'=>$user])}}">
+                <img src="{{ asset('storage/'.$user->profile_image) }}"
+                    alt="プロフィール画像" class="user-icon" id="profileImage"></a>
             @else
-            <img src="{{ asset('storage/'.$user->profile_image) }}" alt="プロフィール画像" class="user-icon" id="profileImage">
+            <img src="{{ asset('storage/'.$user->profile_image) }}"
+                alt="プロフィール画像" class="user-icon" id="profileImage">
             @endif
         </td>
         <td>{{$user -> email}}</td>
@@ -111,7 +120,10 @@
         </td>
         <td>{{$user -> gender}}</td>
         @if ($authuser -> id == $user -> id)
-        <td>〒{{ substr(strval($user-> post_code),0,3).'-'.substr(strval($user-> post_code),3) }} {{$user -> address1.$user-> address2.$user-> address3}}</td>
+        <td>〒{{ substr(strval($user-> post_code),0,3).
+        '-'.substr(strval($user-> post_code),3) }}
+            {{$user -> address1.$user-> address2.$user-> address3}}
+        </td>
 
         <td>{{$user -> join_date}}</td>
         <td><a href="{{route('user_info.show',['user'=> $user])}}" class="button-link">詳細</a></td>
