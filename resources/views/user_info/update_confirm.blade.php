@@ -17,10 +17,6 @@
 
         Email：
         <a class="old-value">{{old('email',$user -> email)}}</a>
-        <!-- <input type="hidden" value="{{old('email',$user -> email)}}"> -->
-        <!-- <a class="arrow-mark">→</a>
-        <a class="new-value">{{old('email',$request -> email)}}</a> -->
-
     </div>
 
     <div class="form-input">
@@ -141,7 +137,6 @@
 
     <br>
     <div>
-        <!-- 3つを満たすケースから全部書く？それとも何か方法がある？？考えてみる -->
         入社日
         <div>
             ┗年度：
@@ -195,10 +190,6 @@
     <input type="submit" value="修正" class="button-link">
 
 </form>
-
-<!-- <form action="{{route('top') }}" method="get">
-    <input type="submit" value="プロフィール修正" class="button-link">
-</form> -->
 
 <button onclick="history.back()" class="button-link">戻る</button>
 

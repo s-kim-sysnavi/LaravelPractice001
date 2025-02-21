@@ -102,23 +102,9 @@
 <h1>会員登録画面</h1>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src='{{ asset('js/gender_toggle_button.js') }}' defer></script>
-<!-- <script src='{{ asset('js/join_year_selector.js') }}' defer></script> -->
 <script src='{{ asset('js/register_form_validation.js') }}' defer></script>
 <script src='{{ asset('js/post_code_search.js') }}' defer></script>
 
-<!-- <script>
-    alert("<%=message%>");
-</script> -->
-
-<!-- @if($errors->any())
-<div class="mb-8 py-4 px-6 border border-red-300 bg-red-50 rounded">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li class="text-red-400">{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif -->
 @if ($errors->any())
 <script>
     alert("{{ $errors->first() }}");
@@ -244,30 +230,6 @@
                 }@endfor
         </select>
     </div>
-
-
-    <!-- <div class="selector-container">
-        <div id="yearSelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="years-container"></div>
-            <div class="click-region right"></div>
-        </div>
-        <div id="monthSelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="months-container"></div>
-            <div class="click-region right"></div>
-        </div>
-        <div id="daySelector" class="selector">
-            <div class="click-region left"></div>
-            <div class="days-container"></div>
-            <div class="click-region right"></div>
-        </div>
-    </div>
-
-    <input type="hidden" id="join_year" name="join_year" required>
-    <input type="hidden" id="join_month" name="join_month" required>
-    <input type="hidden" id="join_day" name="join_day" required> -->
-
 
     <button type="submit" class="button-link">登録</button>
 </form>

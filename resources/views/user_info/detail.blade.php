@@ -48,7 +48,6 @@
     </div>
     <div><label for="id">Id：{{$user -> id}}</label> </div>
     <div><label for="email">Email：{{$user -> email}}</label> </div>
-    <!-- <input type="hidden" value="{{old('email',$user -> email)}}"> -->
     <div class="form-input">
         氏名：
         <label for="last_name"></label>

@@ -4,21 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+// ユーザー情報登録時に入力する内容のバリデーションルール記載
 class UserStoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,7 +23,6 @@ class UserStoreRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
             'gender' => ['required', 'string'],
-            // 'birth_day' => ['required', 'date'],
             'birth_year' => ['required', 'integer','min:1950','max:'.date('Y')],
             'birth_month' => ['required', 'integer','min:1','max:12'],
             'birth_day' => ['required', 'integer','min:1','max:31'],

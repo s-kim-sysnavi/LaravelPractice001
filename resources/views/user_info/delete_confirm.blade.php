@@ -126,10 +126,6 @@
     </div>
 </div>
 
-<!-- <form action="{{route('top') }}" method="get">
-    <input type="submit" value="プロフィール修正" class="button-link">
-</form> -->
-
 <button onclick="history.back()" class="button-link">戻る</button>
 
 @endsection

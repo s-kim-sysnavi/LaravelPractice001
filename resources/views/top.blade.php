@@ -19,7 +19,7 @@
         background-color: white;
         padding: 15px;
         width: 350px;
-        /*モーダルの大きさ調整はこの属性*/
+
         border-radius: 8px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         position: relative;
@@ -38,7 +38,7 @@
         position: fixed;
         top: 75%;
         left: -200px;
-        /* 初期位置: 画面外 (左) */
+
         transform: translateY(-50%);
         transition: left 1s ease-in-out;
         width: 150px;
@@ -47,10 +47,9 @@
         z-index: 1000;
     }
 
-    /* イースターエッグを表示するクラス */
     .easter-egg.show {
         left: -15px;
-        /* 画面左端から少し出る */
+
     }
 
     .wellcome {

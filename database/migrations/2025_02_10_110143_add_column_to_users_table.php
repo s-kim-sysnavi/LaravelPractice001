@@ -35,7 +35,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
 
             // $table->renameColumn('address1', 'address');
-            $table->dropColumn(['post_code', 'address2', 'address3', 'position', 'last_name_kana', 'first_name_kana', 'birth_day']);
+            $table->dropColumn(['post_code', 'address2', 'address3', 'position', 'last_name_kana', 'first_name_kana', 'birth_date']);
         });
     }
 };

@@ -5,12 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserApiController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/user-info/all-full', [UserApiController::class, 'index_all'])->name('user_info.all_full');
-
-// Route::get('/user-info/all', [UserApiController::class, 'index_limit'])->name('user_info.all');
-
+// 全てのユーザー情報を取得するAPIエンドポイントのルート
 Route::get('/user-info/all', [UserApiController::class, 'index'])->name('user_info.all');
 
+// 特定ユーザー情報を取得するAPIエンドポイントのルート
 Route::get('/user-info/{user}', [UserApiController::class, 'show'])->name('user_info.detail');
-
-// Route::get('/user-info/{user}/full', [UserApiController::class, 'show_all'])->name('user_info.detail_full');

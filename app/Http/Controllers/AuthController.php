@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
+// 認証処理関連コントローラー
 class AuthController extends Controller
 {
+
+    // ログイン画面の表示
     public function showLoginForm()
     {
         return view('login');
     }
 
+    // ログイン処理
     public function login(Request $request)
     {
         // バリデーション(フォームリクエストに書き換え可)
@@ -24,6 +27,7 @@ class AuthController extends Controller
         // ログイン情報が正しいか
         // Auth::attemptメソッドでログイン情報が正しいか検証
         if (Auth::attempt($credentials)) {
+
             // セッションを再生成する処理(セキュリティ対策)
             $request->session()->regenerate();
 
@@ -46,8 +50,10 @@ class AuthController extends Controller
     {
         // ログアウト処理
         Auth::logout();
+
         // 現在使っているセッションを無効化(セキュリティ対策のため)
         $request->session()->invalidate();
+        
         // セッションを無効化を再生成(セキュリティ対策のため)
         $request->session()->regenerateToken();
 

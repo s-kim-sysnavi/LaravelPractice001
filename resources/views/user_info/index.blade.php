@@ -30,8 +30,6 @@
         box-shadow: 0 4px 8px rgba(0, 150, 255, 0.9);
     }
 
-
-    /* 画像を中央揃えにする */
     .image-container {
         display: flex;
         justify-content: center;
@@ -129,9 +127,6 @@
     @endif
 </table>
 
-
-
-<!-- 「トップ画面へ」ボタン -->
 <form action="{{route("top")}}" method="get">
     <input type="submit" value="トップ画面へ" class="button-link">
 </form>

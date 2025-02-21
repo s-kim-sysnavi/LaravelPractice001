@@ -101,27 +101,6 @@
         width: 100%;
     }
 
-    /* @ keyframes bounce {
-
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-            transform: translateY(0);
-        }
-
-        40 % {
-            transform:
-                translateY(-10px);
-        }
-
-        60 % {
-            transform:
-                translateY(-5px);
-        }
-    } */
-
     .click-region {
         width: 30px;
         height: 30px;
@@ -176,19 +155,7 @@
 <script src='{{ asset('js/gender_toggle_button.js') }}' defer></script>
 <script src='{{ asset('js/join_year_selector.js') }}' defer></script>
 <script src='{{ asset('js/register_form_validation.js') }}' defer></script>
-<!-- <script>
-    alert("<%=message%>");
-</script> -->
 
-<!-- @if($errors->any())
-<div class="mb-8 py-4 px-6 border border-red-300 bg-red-50 rounded">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li class="text-red-400">{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif -->
 @if ($errors->any())
 <script>
     alert("{{ $errors->first() }}");
@@ -244,9 +211,9 @@
     </p>
     <p>住所1(都道府県)： <input type="text" id="address1" name="address1" class="form-input" value="{{old('address1')}}" required>
     </p>
-    <p>住所2(市町村)：  <input type="text" id="address2" name="address2" class="form-input" value="{{old('address2')}}" required>
+    <p>住所2(市町村)： <input type="text" id="address2" name="address2" class="form-input" value="{{old('address2')}}" required>
     </p>
-    <p>住所3(その他)：  <input type="text" id="address3" name="address3" class="form-input" value="{{old('address3')}}" required>
+    <p>住所3(その他)： <input type="text" id="address3" name="address3" class="form-input" value="{{old('address3')}}" required>
     </p>
 
     <div id="addressError" class="error"></div>

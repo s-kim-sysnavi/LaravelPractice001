@@ -12,9 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
-        $middleware->redirectGuestsTo(fn() => route('login'));
-        $middleware->redirectUsersTo(fn() => route('top'));
+
+
+        // リクエストのurlがapi関連であれば、認証は不要、他は認証しないとユーザー登録、ログイン画面しか表示されない
+        $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+        if (!str_starts_with($requestUri, '/api/')) {
+            $middleware->redirectGuestsTo(fn() => route('login'));
+            $middleware->redirectUsersTo(fn() => route('top'));
+        }
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

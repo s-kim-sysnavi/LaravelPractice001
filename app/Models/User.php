@@ -2,21 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    // シードデータ作成やお知らせ機能の利用
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // 一括保存する項目
     protected $fillable = [
         'last_name',
         'first_name',
@@ -27,7 +22,6 @@ class User extends Authenticatable
         'gender',
         'birth_date',
         'join_date',
-
         'post_code',
         'address1',
         'address2',
@@ -35,37 +29,18 @@ class User extends Authenticatable
         'role',
 
     ];
+
+    // デフォルト設定項目
     protected $attributes = [
         'role' => 'user', // default
         'profile_image' => 'users/default.png',
 
     ];
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+
+    // 外部に漏出しない値
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    // public function setRoleAttribute($value)
-    // {
-    //     $this->attributes['role'] = $value ?? 'user';
-    //     $this->attributes['profile_image'] = $value ?? 'users/defalut.png';
-    // }
 }
